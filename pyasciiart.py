@@ -2,6 +2,7 @@ import sys
 import os
 import ast
 import json
+import pkg_resources
 from pathlib import Path
 from termcolor import colored
 
@@ -10,7 +11,7 @@ class art():
     '''overwrite join, lower, upper and other methods; concat, slicing, etc'''
     def __init__(self, s):
         # ******* font setup *******
-        self.default_font_file = 'fonts/basic_font.txt'
+        self.default_font_file = static_file_path('fonts', 'basic_font.txt')
         self.characters_str = Path(self.default_font_file).read_text(encoding='utf-8')
         self.characters_data =  ast.literal_eval(self.characters_str)
         
@@ -79,6 +80,16 @@ def script_path():
     current_path = os.path.realpath(os.path.dirname(sys.argv[0]))
     os.chdir(current_path)
     return current_path
+    
+    
+def static_file_path(directory, filename):
+    ''' get path of the specified file from specified dir'''
+    resource_path = '/'.join((directory, filename))   # Do not use os.path.join()
+    try:
+        template = pkg_resources.resource_filename(__name__, resource_path)
+    except KeyError:
+        return 'none'   # empty string cause AttributeError, and non empty FileNotFoundError
+    return template
     
     
 def read_json(filename):
