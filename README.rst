@@ -7,9 +7,9 @@ Info
 ===========
 It provides basic support for creating and performing ascii art strings: For now it handles:
 
-    - concatenation ( __add__ )
-    - multiplication ( __mul__ )
-    - print function ( print() )
+- concatenation ( __add__ )
+- multiplication ( __mul__ )
+- print function ( print() )
 
 
 Install
